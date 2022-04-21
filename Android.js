@@ -1,26 +1,25 @@
 var wd = require("wd")
 var assert  = require("assert");
-const text = require("body-parser/lib/types/text");
 var asserter = wd.asserters;
 
-username = (process.env.LT_USERNAME == undefined) ? "ankitagarwal" 
+username = (process.env.LT_USERNAME == undefined) ? "username" //Enter the username here
         : process.env.LT_USERNAME
-accesskey = (process.env.LT_ACCESS_KEY == undefined) ? 
-        "39dQIDuAGGlnaQSlM3HcceVRy9ftXEk8auSNINALa5oZwWtjh6" : process.env.LT_ACCESS_KEY
+accesskey = (process.env.LT_ACCESS_KEY == undefined) ? "access_key" //Enter the access_key here
+        : process.env.LT_ACCESS_KEY
 
-caps = {
+desired_capabilities = {
     'deviceName':'Galaxy S20',
     'platformVersion':'11',
     'platformName':'android',
     'isRealMobile':true,
-    'app':'lt://APP100201841649245552835614',
+    'app':'lt://', //Enter the app_url here
     'visual':true,
     'video': true
 }
 
 driver = wd.promiseRemote(`https://${username}:${accesskey}@beta-hub.lambdatest.com/wd/hub`)
 
-driver.init(caps)
+driver.init(desired_capabilities)
 .then(function(){
     return driver.waitForElementById('color',10000)
 })
