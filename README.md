@@ -1,4 +1,4 @@
-# LT_Javascript_Appium
+# LT-Appium-Javascript
 Sample repo to run app automation on real device on LambdaTest.
 
 ## Step 1: Upload your Application
