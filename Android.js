@@ -19,6 +19,10 @@ desired_capabilities = {
 
 driver = wd.promiseRemote(`https://${username}:${accesskey}@beta-hub.lambdatest.com/wd/hub`)
 
+async function Androidtest(){
+
+try {
+
 driver.init(desired_capabilities)
 .then(function(){
     return driver.waitForElementById('color',10000)
@@ -65,3 +69,10 @@ driver.init(desired_capabilities)
     find.click()
     driver.quit()
 })
+}
+catch (e) {
+    driver.quit()
+}
+}
+
+Androidtest(); 
