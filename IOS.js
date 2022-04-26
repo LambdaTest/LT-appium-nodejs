@@ -21,7 +21,7 @@ desired_capabilities = {
 
 driver = wd.promiseRemote(`https://${username}:${accesskey}@beta-hub.lambdatest.com/wd/hub`)
 
-async function test(){
+async function iOStest(){
 
 try {
 
@@ -83,4 +83,4 @@ catch (e) {
 }
 }
 
-test();
+iOStest();
