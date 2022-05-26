@@ -54,7 +54,7 @@ export LT_ACCESS_KEY="${ YOUR_LAMBDATEST_ACCESS_KEY()}`}"
  
  **For Windows:**
  
-  {`set LT_USERNAME="${ YOUR_LAMBDATEST_USERNAME()}" \`
+ {`set LT_USERNAME="${ YOUR_LAMBDATEST_USERNAME()}" \
 set LT_ACCESS_KEY="${ YOUR_LAMBDATEST_ACCESS_KEY()}`}"
   
 ### Upload Your Application
@@ -73,7 +73,6 @@ set LT_ACCESS_KEY="${ YOUR_LAMBDATEST_ACCESS_KEY()}`}"
 
 **For Windows:**
 
-<CodeBlock className="language-powershell">
 {`curl -u "${ YOUR_LAMBDATEST_USERNAME()}:${ YOUR_LAMBDATEST_ACCESS_KEY()}" -X POST "https://manual-api.lambdatest.com/app/upload/realDevice" -F "appFile=@"/Users/macuser/Downloads/proverbial_android.apk""`}
 
 **Using App URL:**
