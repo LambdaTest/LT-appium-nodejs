@@ -19,7 +19,7 @@ desired_capabilities = {
     'name': 'Sample Test - NodeJS'
 }
 
-driver = wd.promiseRemote(`https://${username}:${accesskey}@beta-hub.lambdatest.com/wd/hub`)
+driver = wd.promiseRemote(`https://${username}:${accesskey}@mobile-hub.lambdatest.com/wd/hub`)
 
 async function iOStest(){
 

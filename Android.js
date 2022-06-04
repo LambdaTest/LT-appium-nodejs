@@ -17,7 +17,7 @@ desired_capabilities = {
     'video': true
 }
 
-driver = wd.promiseRemote(`https://${username}:${accesskey}@beta-hub.lambdatest.com/wd/hub`)
+driver = wd.promiseRemote(`https://${username}:${accesskey}@mobile-hub.lambdatest.com/wd/hub`)
 
 async function Androidtest(){
 
