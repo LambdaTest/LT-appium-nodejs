@@ -32,7 +32,7 @@ const DEFAULT_TIMEOUT = 10000;
 /**
  * Run an android test.
  */
-async function runAndroidTests() {
+async function runAndroidTest() {
   try {
     driver
       .init(desiredCapabilities)
@@ -86,4 +86,4 @@ async function runAndroidTests() {
   }
 }
 
-runAndroidTests();
+runAndroidTest();
