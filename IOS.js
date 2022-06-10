@@ -16,7 +16,12 @@ desired_capabilities = {
     'visual':true,
     'video': true,
     'build':'NodeJS Vanilla - iOS',
-    'name': 'Sample Test - NodeJS'
+    'name': 'Sample Test - NodeJS',
+
+    // ADD THE APP URL OF OTHER APPS THAT YOU'D LIKE TO INSTALL ON THE SAME DEVICE
+
+    'otherApps':['lt:// ', 'lt:// ']   //ENTER THE OTHER APP URLs HERE IN AN ARRAY FORMAT
+
 }
 
 driver = wd.promiseRemote(`https://${username}:${accesskey}@mobile-hub.lambdatest.com/wd/hub`)
@@ -42,36 +47,6 @@ driver.init(desired_capabilities)
 .then(function(toast){
     toast.click()
     return driver.waitForElementById('notification',10000)
-})
-.then(function(notification){
-    notification.click()
-    return driver.waitForElementById('geoLocation',10000)
-})
-.then(function(geoLocation){
-    return geoLocation.click()
-})
-.then(async function(){
-    return driver.waitForElementById('Back',10000)
-})
-.then(function(Back){
-    Back.click()
-    return driver.waitForElementById('speedTest',10000)
-})
-.then(async function(speedTest){
-    speedTest.click()
-    return driver.waitForElementById('Back',10000)
-})
-.then(function(back){
-    back.click()
-    return driver.waitForElementById('Browser',10000)
-})
-.then(function(Browser){
-    Browser.click()
-    return driver.waitForElementById('url',10000)
-})
-.then(function(url){
-    url.type("https://www.lambdatest.com")
-    return driver.waitForElementById('find',10000)
 })
 .then(function(find){
     find.click()
