@@ -1,10 +1,10 @@
-# How to change IP geographic location in Real Devices on [LambdaTest](https://www.lambdatest.com/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-geolocation) using the Appium & NodeJS
+# How to handle permission pop-ups in Real Devices on [LambdaTest](https://www.lambdatest.com/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-permissions) using the Appium & NodeJS
 
-While performing app automation testing with appium on LambdaTest Grid, you may face a scenario where you would like to simulate location of a specific country. You can easily do that by using the lambdatest capability "GeoLocation" and refer the 2-letter country code in the automation script. You can refer to sample test repo [here](https://github.com/LambdaTest/LT-appium-nodejs).
+While performing app automation testing with appium on LambdaTest Grid, you may face a scenario where you would like to automatically handle permission pop-ups. You may choose to either accept all permission pop-ups or dismiss all of them. You can handle the case as mentioned below separately for Android or iOS apps. You can refer to sample test repo [here](https://github.com/LambdaTest/LT-appium-nodejs).
 
 # Steps:
 
-The following is an example on how to set geoLocation in the capabilities.
+The following is an example on how to handle permissions in the capabilities in the automation script.
 
 Below is the ```Android.js``` example shown:
 
@@ -27,9 +27,14 @@ desired_capabilities = {
     'visual':true,
     'video': true,
 
-    //ADD GEOLOCATION BASED ON COUNTRY CODE
-    'geoLocation':'fr' 
+    //GRANT PERMISSIONS FOR ANDROID
+    'autoGrantPermissions': true,
 
+    //ACCEPT ALERTS FOR IOS
+    'autoDismissAlerts': true,
+
+    //DISMISS ALERTS FOR IOS
+    'autoAcceptAlerts': true
 }
 
 driver = wd.promiseRemote(`https://${username}:${accesskey}@mobile-hub.lambdatest.com/wd/hub`)
@@ -134,4 +139,4 @@ To stay updated with the latest features and product add-ons, visit [Changelog](
 ## We are here to help you :headphones:
 
 * Got a query? we are available 24x7 to help. [Contact Us](support@lambdatest.com)
-* For more info, visit - [LambdaTest](https://www.lambdatest.com/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-geolocation)
+* For more info, visit - [LambdaTest](https://www.lambdatest.com/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-permissions)
