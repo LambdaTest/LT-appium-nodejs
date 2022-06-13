@@ -16,8 +16,10 @@ desired_capabilities = {
     'visual':true,
     'video': true,
 
-    //ADD GEOLOCATION BASED ON COUNTRY CODE
-    'geoLocation':'fr'  
+    //GRANT PERMISSIONS FOR ANDROID
+    'autoGrantPermissions': true
+
+    
 }
 
 driver = wd.promiseRemote(`https://${username}:${accesskey}@mobile-hub.lambdatest.com/wd/hub`)
