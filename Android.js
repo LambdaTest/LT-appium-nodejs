@@ -12,15 +12,13 @@ desired_capabilities = {
     'platformVersion':'11',
     'platformName':'android',
     'isRealMobile':true,
-    'app':'lt://', //Enter the app_url here
+
+    //Enter the Custom_ID here that was used to upload your application
+
+    'app':'ENTER_CUSTOM_ID_HERE', //Enter the app_url here
+
     'visual':true,
     'video': true,
-
-
-    // ADD THE APP URL OF OTHER APPS THAT YOU'D LIKE TO INSTALL ON THE SAME DEVICE
-
-    'otherApps':['lt:// ', 'lt:// ']   //ENTER THE OTHER APP URLs HERE IN AN ARRAY FORMAT
-
 }
 
 driver = wd.promiseRemote(`https://${username}:${accesskey}@mobile-hub.lambdatest.com/wd/hub`)
