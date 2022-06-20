@@ -58,14 +58,14 @@ Set LambdaTest `Username` and `Access Key` in environment variables.
 
 **For Linux/macOS:**
 
-```js
+```bash
 export LT_USERNAME="YOUR_LAMBDATEST_USERNAME" \
 export LT_ACCESS_KEY="YOUR_LAMBDATEST_ACCESS_KEY"
 ```
 
 **For Windows:**
 
-```js
+```powershell
 set LT_USERNAME="YOUR_LAMBDATEST_USERNAME" `
 set LT_ACCESS_KEY="YOUR_LAMBDATEST_ACCESS_KEY"
 ```
@@ -78,7 +78,7 @@ Upload your **_iOS_** application (.ipa file) or **_android_** application (.apk
 
 **For Linux/macOS:**
 
-```js
+```bash
 curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" \
 --location --request POST 'https://manual-api.lambdatest.com/app/upload/realDevice' \
 --form 'name="Android_App"' \
@@ -87,7 +87,7 @@ curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" \
 
 **For Windows:**
 
-```js
+```powershell
 curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" -X POST "https://manual-api.lambdatest.com/app/upload/realDevice" -F "appFile=@"/Users/macuser/Downloads/proverbial_android.apk""
 ```
 
@@ -95,7 +95,7 @@ curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" -X POST "https://m
 
 **For Linux/macOS:**
 
-```js
+```bash
 curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" \
 --location --request POST 'https://manual-api.lambdatest.com/app/upload/realDevice' \
 --form 'name="Android_App"' \
@@ -104,14 +104,14 @@ curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" \
 
 **For Windows:**
 
-```js
+```powershell
 curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" -X POST "https://manual-api.lambdatest.com/app/upload/realDevice" -d "{"url":"https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_android.apk","name":"sample.apk"}"
 ```
 
-**Tip:**
+> **Tip:**
 
-- If you do not have any **.apk** or **.ipa** file, you can run your sample tests on LambdaTest by using our sample :link: [Android app](https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_android.apk) or sample :link: [iOS app](https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_ios.ipa).
-- Response of above cURL will be a **JSON** object containing the `App URL` of the format - <lt://APP123456789123456789> and will be used in the next step.
+> - If you do not have any **.apk** or **.ipa** file, you can run your sample tests on LambdaTest by using our sample :link: [Android app](https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_android.apk) or sample :link: [iOS app](https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_ios.ipa).
+> - Response of above cURL will be a **JSON** object containing the `App URL` of the format - <lt://APP123456789123456789> and will be used in the next step.
 
 ## Run Your First Test
 
@@ -123,9 +123,7 @@ Test Scenario: Check out [Android.js](https://github.com/LambdaTest/LT-appium-no
 
 You can update your custom capabilities in the scripts. In our sample script, we are passing platform name, platform version, device name and app url (generated earlier) along with other capabilities like build name and test name via capabilities object. The capabilities object in the sample code for a single test are defined as:
 
-<Tabs className="docs__val">
-
-<TabItem value="ios-config" label="ios.js" default>
+**iOS:**
 
 ```javascript
 desired_capabilities = {
@@ -140,9 +138,7 @@ desired_capabilities = {
   name: "Sample Test - NodeJS",
 };
 ```
-
-</TabItem>
-<TabItem value="android-config" label="android.js" default>
+**Android:**
 
 ```javascript
 desired_capabilities = {
@@ -157,10 +153,6 @@ desired_capabilities = {
   name: "Sample Test - NodeJS",
 };
 ```
-
-</TabItem>
-
-</Tabs>
 
 **Info Note:**
 
