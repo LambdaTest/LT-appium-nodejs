@@ -14,7 +14,7 @@ const accessKey = process.env.LT_ACCESS_KEY || "accessKey";
  * Capabilities to be passed while running the test.
  */
 const desiredCapabilities = {
-  app: "lt://", // Enter the 'app_url' here.
+  app: "lt://proverbial-android", // Enter the 'app_url' here.
   build: "NodeJS - Android",
   name: "Sample Test NodeJS",
   deviceName: "Galaxy S20",
