@@ -12,7 +12,7 @@ desired_capabilities = {
     'platformVersion':'14',
     'platformName':'iOS',
     'isRealMobile':true,
-    'app':'lt://', //Enter the app_url here
+    'app':'lt://proverbial-ios', //Enter the app_url here
     'visual':true,
     'video': true,
     'build':'NodeJS Vanilla - iOS',
