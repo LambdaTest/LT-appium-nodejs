@@ -19,6 +19,7 @@ const desiredCapabilities = {
   name: "Sample Test NodeJS",
   deviceName: "Galaxy S20",
   isRealMobile: true,
+  appiumVersion: "1.22.3",
   platformName: "android",
   platformVersion: "11",
   video: true,
