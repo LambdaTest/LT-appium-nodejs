@@ -66,14 +66,17 @@ jobs:
       if: always()
       uses: slackapi/slack-github-action@v1.25.0
       with:
-        channel-id: 'git-action-test'
-        slack-message: |
-          Workflow: ${{ github.workflow }}
-          Status: ${{ job.status }}
-          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          Branch: ${{ github.ref_name }}
-          Commit: ${{ github.sha }}
-          Author: ${{ github.actor }}
-          Test Status: ${{ steps.test.outcome }}
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} 
+        webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        payload: |
+          {
+            "text": "Workflow Status Update",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Workflow:* ${{ github.workflow }}\n*Status:* ${{ job.status }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}\n*Test Status:* ${{ steps.test.outcome }}"
+                }
+              }
+            ]
+          } 
