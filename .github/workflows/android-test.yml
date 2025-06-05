@@ -1,0 +1,65 @@
+name: Android Test
+
+# This workflow runs the Android test using LambdaTest
+on:
+  push:
+    branches: [ TTN-23587 ]
+  pull_request:
+    branches: [ TTN-23587 ]
+  workflow_dispatch:
+  schedule:
+    - cron: '30 14 * * *'  # Runs at 8 PM IST (14:30 UTC) every day
+
+env:
+  LT_USERNAME: ${{ secrets.LT_USERNAME }}
+  LT_ACCESS_KEY: ${{ secrets.LT_ACCESS_KEY }}
+  LT_APP_ID: ${{ secrets.LT_APP_ID }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        echo "Installing dependencies..."
+        npm install --no-package-lock
+        npm install file:packages/appium-navigation-tracker-1.0.0.tgz --no-package-lock
+        echo "\nVerifying installations:"
+        ls -la node_modules/wd || true
+        ls -la node_modules/appium-navigation-tracker || true
+    
+    - name: Configure LambdaTest credentials
+      run: |
+        echo "LT_USERNAME=${{ secrets.LT_USERNAME }}" >> $GITHUB_ENV
+        echo "LT_ACCESS_KEY=${{ secrets.LT_ACCESS_KEY }}" >> $GITHUB_ENV
+        echo "LT_APP_ID=${{ secrets.LT_APP_ID }}" >> $GITHUB_ENV
+    
+    - name: Run Android Test
+      id: test
+      run: |
+        echo "Running Android test..."
+        node Android.js 2>&1 | tee android-test.log
+      continue-on-error: true
+    
+    - name: Debug - Show test logs
+      if: failure()
+      run: |
+        echo "Android test log:"
+        cat android-test.log || true
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: test-results/
+        if-no-files-found: warn 
