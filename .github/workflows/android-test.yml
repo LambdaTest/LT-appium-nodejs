@@ -61,10 +61,18 @@ jobs:
         ls -la node_modules/wd || true
       continue-on-error: true
     
-    - name: Install navigation tracker
+    - name: Extract and install navigation tracker
       run: |
-        echo "Installing navigation tracker..."
-        npm install ./packages/appium-navigation-tracker-1.0.0.tgz --verbose 2>&1 | tee npm-tracker-install.log
+        echo "Creating temp directory..."
+        mkdir -p temp
+        echo "Extracting navigation tracker..."
+        tar -xzf packages/appium-navigation-tracker-1.0.0.tgz -C temp
+        echo "\nContents of extracted package:"
+        ls -la temp/package
+        echo "\nInstalling from extracted package..."
+        cd temp/package
+        npm install --verbose 2>&1 | tee ../../npm-tracker-install.log
+        cd ../..
         echo "\nVerifying navigation tracker installation:"
         ls -la node_modules/appium-navigation-tracker || true
       continue-on-error: true
@@ -88,6 +96,8 @@ jobs:
         cat package.json || true
         echo "\nPackages directory contents:"
         ls -la packages || true
+        echo "\nTemp directory contents:"
+        ls -la temp || true
     
     - name: Configure LambdaTest credentials
       run: |
