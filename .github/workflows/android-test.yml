@@ -54,7 +54,7 @@ jobs:
     - name: Install wd package
       run: |
         echo "Installing wd package..."
-        npm install wd@1.14.0 --save-exact --no-package-lock --verbose
+        npm install wd@1.14.0 --save-exact --no-package-lock --verbose 2>&1 | tee npm-install.log
         echo "\nInstalled packages:"
         npm list --depth=0
       continue-on-error: true
@@ -66,6 +66,8 @@ jobs:
         cat npm-debug.log || true
         echo "\nNPM error log:"
         cat npm-error.log || true
+        echo "\nNPM install log:"
+        cat npm-install.log || true
         echo "\nDirectory contents after failure:"
         ls -la
         echo "\nNode modules contents:"
@@ -75,12 +77,28 @@ jobs:
     
     - name: Install navigation tracker
       run: |
+        echo "Downloading navigation tracker..."
         mkdir -p packages
         curl -L https://github.com/srivishnua-lambdatest/lambdatest-js-sdk/raw/stage/packages/appium/appium-navigation-tracker-1.0.0.tgz -o packages/appium-navigation-tracker-1.0.0.tgz
-        npm install ./packages/appium-navigation-tracker-1.0.0.tgz --no-package-lock --verbose
+        echo "\nVerifying download:"
+        ls -la packages/
+        echo "\nInstalling navigation tracker..."
+        npm install ./packages/appium-navigation-tracker-1.0.0.tgz --no-package-lock --verbose 2>&1 | tee npm-tracker-install.log
+        echo "\nVerifying installation:"
+        ls -la node_modules/appium-navigation-tracker || true
       continue-on-error: true
     
-    - name: Debug - Show installation status
+    - name: Debug - Show tracker installation logs
+      if: failure()
+      run: |
+        echo "Navigation tracker installation log:"
+        cat npm-tracker-install.log || true
+        echo "\nNode modules contents:"
+        ls -la node_modules || true
+        echo "\nPackages directory contents:"
+        ls -la packages || true
+    
+    - name: Debug - Show final installation status
       run: |
         echo "Final package.json:"
         cat package.json
@@ -96,7 +114,16 @@ jobs:
         echo "LT_APP_ID=${{ secrets.LT_APP_ID }}" >> $GITHUB_ENV
     
     - name: Run Android Test
-      run: node Android.js
+      run: |
+        echo "Running Android test..."
+        node Android.js 2>&1 | tee android-test.log
+      continue-on-error: true
+    
+    - name: Debug - Show test logs
+      if: failure()
+      run: |
+        echo "Android test log:"
+        cat android-test.log || true
     
     - name: Upload test results
       if: always()
