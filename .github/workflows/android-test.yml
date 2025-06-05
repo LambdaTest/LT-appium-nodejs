@@ -23,12 +23,17 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '18.20.8'
         cache: 'npm'
     
-    - name: Install dependencies
+    - name: Install base dependencies
       run: |
-        npm install
+        npm install wd@1.14.0
+    
+    - name: Install navigation tracker
+      run: |
+        mkdir -p packages
+        curl -L https://github.com/srivishnua-lambdatest/lambdatest-js-sdk/raw/stage/packages/appium/appium-navigation-tracker-1.0.0.tgz -o packages/appium-navigation-tracker-1.0.0.tgz
         npm install ./packages/appium-navigation-tracker-1.0.0.tgz
     
     - name: Configure LambdaTest credentials
