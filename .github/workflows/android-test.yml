@@ -44,10 +44,17 @@ jobs:
         echo "\nNode version:"
         node --version
     
-    - name: Clean npm cache
+    - name: Clean npm cache and node_modules
       run: |
-        echo "Cleaning npm cache..."
+        echo "Cleaning npm cache and node_modules..."
+        rm -rf node_modules
+        rm -f package-lock.json
         npm cache clean --force
+    
+    - name: Install wd package first
+      run: |
+        echo "Installing wd package..."
+        npm install wd@1.14.0 --save-exact --verbose
     
     - name: Generate package-lock.json
       run: |
@@ -73,6 +80,8 @@ jobs:
         ls -la
         echo "\nNode modules contents:"
         ls -la node_modules || true
+        echo "\nPackage.json contents:"
+        cat package.json || true
     
     - name: Install navigation tracker
       run: |
