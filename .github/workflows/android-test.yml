@@ -26,6 +26,8 @@ jobs:
         ls -la
         echo "\nPackage files:"
         ls -la package*.json || true
+        echo "\nPackages directory contents:"
+        ls -la packages || true
     
     - name: Set up Node.js
       uses: actions/setup-node@v4
@@ -62,7 +64,7 @@ jobs:
     - name: Install navigation tracker from tgz
       run: |
         echo "Installing navigation tracker from tgz..."
-        npm install ./packages/appium-navigation-tracker-1.0.0.tgz --verbose 2>&1 | tee npm-tracker-install.log
+        npm install packages/appium-navigation-tracker-1.0.0.tgz --verbose 2>&1 | tee npm-tracker-install.log
         echo "\nVerifying installation:"
         ls -la node_modules/appium-navigation-tracker || true
       continue-on-error: true
@@ -84,6 +86,8 @@ jobs:
         ls -la node_modules || true
         echo "\nPackage.json contents:"
         cat package.json || true
+        echo "\nPackages directory contents:"
+        ls -la packages || true
     
     - name: Configure LambdaTest credentials
       run: |
