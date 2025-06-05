@@ -42,10 +42,15 @@ jobs:
         echo "\nNPM cache location:"
         npm config get cache
     
+    - name: Generate package-lock.json
+      run: |
+        echo "Generating fresh package-lock.json..."
+        npm install --package-lock-only --verbose
+    
     - name: Install dependencies
       run: |
-        echo "Starting npm ci..."
-        npm ci --verbose
+        echo "Starting npm install..."
+        npm install --verbose
       continue-on-error: true
     
     - name: Debug - Show npm error logs
@@ -55,6 +60,8 @@ jobs:
         cat npm-debug.log || true
         echo "\nNPM error log:"
         cat npm-error.log || true
+        echo "\nDirectory contents after failure:"
+        ls -la
     
     - name: Install navigation tracker
       run: |
