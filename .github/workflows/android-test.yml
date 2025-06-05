@@ -1,5 +1,6 @@
 name: Android Test
 
+# This workflow runs the Android test using LambdaTest
 on:
   push:
     branches: [ TTN-23587 ]
