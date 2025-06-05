@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "wd": "^1.14.0"
+    "appium-navigation-tracker": "file:../../Downloads/appium-navigation-tracker-1.0.0.tgz",
+    "wd": "^1.14.0",
+    "yarn": "^1.22.22"
   }
 }

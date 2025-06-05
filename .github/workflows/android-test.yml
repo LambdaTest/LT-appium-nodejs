@@ -1,0 +1,48 @@
+name: Android Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # Allows manual triggering
+
+env:
+  LT_USERNAME: ${{ secrets.LT_USERNAME }}
+  LT_ACCESS_KEY: ${{ secrets.LT_ACCESS_KEY }}
+  LT_APP_ID: ${{ secrets.LT_APP_ID }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        npm install
+        npm install ./packages/appium-navigation-tracker-1.0.0.tgz
+    
+    - name: Configure LambdaTest credentials
+      run: |
+        echo "LT_USERNAME=${{ secrets.LT_USERNAME }}" >> $GITHUB_ENV
+        echo "LT_ACCESS_KEY=${{ secrets.LT_ACCESS_KEY }}" >> $GITHUB_ENV
+        echo "LT_APP_ID=${{ secrets.LT_APP_ID }}" >> $GITHUB_ENV
+    
+    - name: Run Android Test
+      run: node Android.js
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: test-results/
+        if-no-files-found: warn 
