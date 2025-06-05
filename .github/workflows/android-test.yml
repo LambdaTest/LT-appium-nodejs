@@ -60,25 +60,4 @@ jobs:
       with:
         name: test-results
         path: test-results/
-        if-no-files-found: warn
-
-    - name: Notify Slack
-      if: always()
-      uses: slackapi/slack-github-action@v1.25.0
-      with:
-        channel-id: 'git-action-test'
-        payload: |
-          {
-            "text": "Workflow Status Update",
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*Workflow:* ${{ github.workflow }}\n*Status:* ${{ job.status }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}\n*Test Status:* ${{ steps.test.outcome }}"
-                }
-              }
-            ]
-          }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
+        if-no-files-found: warn 
