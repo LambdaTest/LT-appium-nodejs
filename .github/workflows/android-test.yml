@@ -59,6 +59,14 @@ jobs:
         npm list --depth=0
       continue-on-error: true
     
+    - name: Install navigation tracker from tgz
+      run: |
+        echo "Installing navigation tracker from tgz..."
+        npm install ./packages/appium-navigation-tracker-1.0.0.tgz --verbose 2>&1 | tee npm-tracker-install.log
+        echo "\nVerifying installation:"
+        ls -la node_modules/appium-navigation-tracker || true
+      continue-on-error: true
+    
     - name: Debug - Show npm error logs
       if: failure()
       run: |
@@ -68,6 +76,8 @@ jobs:
         cat npm-error.log || true
         echo "\nNPM install log:"
         cat npm-install.log || true
+        echo "\nNPM tracker install log:"
+        cat npm-tracker-install.log || true
         echo "\nDirectory contents after failure:"
         ls -la
         echo "\nNode modules contents:"
