@@ -20,21 +20,47 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
+    - name: Debug - Show directory contents
+      run: |
+        echo "Current directory contents:"
+        ls -la
+        echo "\nPackage files:"
+        ls -la package*.json || true
+    
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18.20.8'
         cache: 'npm'
     
+    - name: Debug - Show npm configuration
+      run: |
+        echo "NPM version:"
+        npm --version
+        echo "\nNPM config:"
+        npm config list
+        echo "\nNPM cache location:"
+        npm config get cache
+    
     - name: Install dependencies
       run: |
-        npm ci
+        echo "Starting npm ci..."
+        npm ci --verbose
+      continue-on-error: true
+    
+    - name: Debug - Show npm error logs
+      if: failure()
+      run: |
+        echo "NPM debug log:"
+        cat npm-debug.log || true
+        echo "\nNPM error log:"
+        cat npm-error.log || true
     
     - name: Install navigation tracker
       run: |
         mkdir -p packages
         curl -L https://github.com/srivishnua-lambdatest/lambdatest-js-sdk/raw/stage/packages/appium/appium-navigation-tracker-1.0.0.tgz -o packages/appium-navigation-tracker-1.0.0.tgz
-        npm install ./packages/appium-navigation-tracker-1.0.0.tgz
+        npm install ./packages/appium-navigation-tracker-1.0.0.tgz --verbose
     
     - name: Configure LambdaTest credentials
       run: |
