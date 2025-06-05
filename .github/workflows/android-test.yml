@@ -30,7 +30,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '16.20.2'
+        node-version: '14.21.3'
         cache: 'npm'
     
     - name: Debug - Show npm configuration
@@ -57,12 +57,28 @@ jobs:
         npm install wd@1.14.0 --save-exact --no-package-lock --verbose
         echo "\nInstalled packages:"
         npm list --depth=0
+      continue-on-error: true
+    
+    - name: Debug - Show npm error logs
+      if: failure()
+      run: |
+        echo "NPM debug log:"
+        cat npm-debug.log || true
+        echo "\nNPM error log:"
+        cat npm-error.log || true
+        echo "\nDirectory contents after failure:"
+        ls -la
+        echo "\nNode modules contents:"
+        ls -la node_modules || true
+        echo "\nPackage.json contents:"
+        cat package.json || true
     
     - name: Install navigation tracker
       run: |
         mkdir -p packages
         curl -L https://github.com/srivishnua-lambdatest/lambdatest-js-sdk/raw/stage/packages/appium/appium-navigation-tracker-1.0.0.tgz -o packages/appium-navigation-tracker-1.0.0.tgz
         npm install ./packages/appium-navigation-tracker-1.0.0.tgz --no-package-lock --verbose
+      continue-on-error: true
     
     - name: Debug - Show installation status
       run: |
