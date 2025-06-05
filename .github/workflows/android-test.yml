@@ -8,7 +8,7 @@ on:
     branches: [ TTN-23587 ]
   workflow_dispatch:
   schedule:
-    - cron: '0 2 * * *'  # Runs at 2 AM UTC every day
+    - cron: '30 14 * * *'  # Runs at 8 PM IST (14:30 UTC) every day
 
 env:
   LT_USERNAME: ${{ secrets.LT_USERNAME }}
