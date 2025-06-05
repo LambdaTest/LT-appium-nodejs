@@ -20,74 +20,20 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Debug - Show directory contents
-      run: |
-        echo "Current directory contents:"
-        ls -la
-        echo "\nPackage files:"
-        ls -la package*.json || true
-        echo "\nPackages directory contents:"
-        ls -la packages || true
-    
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '14.21.3'
+        node-version: '18'
         cache: 'npm'
     
-    - name: Debug - Show npm configuration
+    - name: Install dependencies
       run: |
-        echo "NPM version:"
-        npm --version
-        echo "\nNPM config:"
-        npm config list
-        echo "\nNPM cache location:"
-        npm config get cache
-        echo "\nNode version:"
-        node --version
-    
-    - name: Clean npm cache and node_modules
-      run: |
-        echo "Cleaning npm cache and node_modules..."
-        rm -rf node_modules
-        rm -f package-lock.json
-        npm cache clean --force
-    
-    - name: Install wd package
-      run: |
-        echo "Installing wd package..."
-        npm install wd@1.14.0 --save-exact --verbose 2>&1 | tee npm-wd-install.log
-        echo "\nVerifying wd installation:"
+        echo "Installing dependencies..."
+        npm install --no-package-lock
+        npm install file:packages/appium-navigation-tracker-1.0.0.tgz --no-package-lock
+        echo "\nVerifying installations:"
         ls -la node_modules/wd || true
-      continue-on-error: true
-    
-    - name: Install navigation tracker
-      run: |
-        echo "Installing navigation tracker..."
-        npm install packages/appium-navigation-tracker-1.0.0.tgz --verbose 2>&1 | tee npm-tracker-install.log
-        echo "\nVerifying navigation tracker installation:"
         ls -la node_modules/appium-navigation-tracker || true
-      continue-on-error: true
-    
-    - name: Debug - Show npm error logs
-      if: failure()
-      run: |
-        echo "NPM debug log:"
-        cat npm-debug.log || true
-        echo "\nNPM error log:"
-        cat npm-error.log || true
-        echo "\nNPM wd install log:"
-        cat npm-wd-install.log || true
-        echo "\nNPM tracker install log:"
-        cat npm-tracker-install.log || true
-        echo "\nDirectory contents after failure:"
-        ls -la
-        echo "\nNode modules contents:"
-        ls -la node_modules || true
-        echo "\nPackage.json contents:"
-        cat package.json || true
-        echo "\nPackages directory contents:"
-        ls -la packages || true
     
     - name: Configure LambdaTest credentials
       run: |
