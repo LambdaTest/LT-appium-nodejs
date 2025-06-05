@@ -41,11 +41,20 @@ jobs:
         npm config list
         echo "\nNPM cache location:"
         npm config get cache
+        echo "\nNode version:"
+        node --version
+    
+    - name: Clean npm cache
+      run: |
+        echo "Cleaning npm cache..."
+        npm cache clean --force
     
     - name: Generate package-lock.json
       run: |
         echo "Generating fresh package-lock.json..."
         npm install --package-lock-only --verbose
+        echo "\nGenerated package-lock.json contents:"
+        cat package-lock.json || true
     
     - name: Install dependencies
       run: |
@@ -62,6 +71,8 @@ jobs:
         cat npm-error.log || true
         echo "\nDirectory contents after failure:"
         ls -la
+        echo "\nNode modules contents:"
+        ls -la node_modules || true
     
     - name: Install navigation tracker
       run: |
