@@ -7,8 +7,7 @@
     "test": "node Android.js"
   },
   "dependencies": {
-    "wd": "1.14.0",
-    "appium-navigation-tracker": "file:./packages/appium-navigation-tracker-1.0.0.tgz"
+    "wd": "1.14.0"
   },
   "engines": {
     "node": ">=18.20.8",
