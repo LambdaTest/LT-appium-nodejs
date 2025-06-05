@@ -51,10 +51,10 @@ jobs:
         rm -f package-lock.json
         npm cache clean --force
     
-    - name: Install wd package
+    - name: Install dependencies
       run: |
-        echo "Installing wd package..."
-        npm install wd@1.14.0 --save-exact --no-package-lock --verbose 2>&1 | tee npm-install.log
+        echo "Installing dependencies..."
+        npm install --verbose 2>&1 | tee npm-install.log
         echo "\nInstalled packages:"
         npm list --depth=0
       continue-on-error: true
@@ -74,38 +74,6 @@ jobs:
         ls -la node_modules || true
         echo "\nPackage.json contents:"
         cat package.json || true
-    
-    - name: Install navigation tracker
-      run: |
-        echo "Downloading navigation tracker..."
-        mkdir -p packages
-        curl -L https://github.com/srivishnua-lambdatest/lambdatest-js-sdk/raw/stage/packages/appium/appium-navigation-tracker-1.0.0.tgz -o packages/appium-navigation-tracker-1.0.0.tgz
-        echo "\nVerifying download:"
-        ls -la packages/
-        echo "\nInstalling navigation tracker..."
-        npm install ./packages/appium-navigation-tracker-1.0.0.tgz --no-package-lock --verbose 2>&1 | tee npm-tracker-install.log
-        echo "\nVerifying installation:"
-        ls -la node_modules/appium-navigation-tracker || true
-      continue-on-error: true
-    
-    - name: Debug - Show tracker installation logs
-      if: failure()
-      run: |
-        echo "Navigation tracker installation log:"
-        cat npm-tracker-install.log || true
-        echo "\nNode modules contents:"
-        ls -la node_modules || true
-        echo "\nPackages directory contents:"
-        ls -la packages || true
-    
-    - name: Debug - Show final installation status
-      run: |
-        echo "Final package.json:"
-        cat package.json
-        echo "\nInstalled packages:"
-        npm list --depth=0
-        echo "\nNode modules contents:"
-        ls -la node_modules
     
     - name: Configure LambdaTest credentials
       run: |
