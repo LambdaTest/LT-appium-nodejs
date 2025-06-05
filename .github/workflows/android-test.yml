@@ -64,7 +64,7 @@ jobs:
     - name: Install navigation tracker from tgz
       run: |
         echo "Installing navigation tracker from tgz..."
-        npm install packages/appium-navigation-tracker-1.0.0.tgz --verbose 2>&1 | tee npm-tracker-install.log
+        npm install file:packages/appium-navigation-tracker-1.0.0.tgz --verbose 2>&1 | tee npm-tracker-install.log
         echo "\nVerifying installation:"
         ls -la node_modules/appium-navigation-tracker || true
       continue-on-error: true
