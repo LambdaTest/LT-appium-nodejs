@@ -53,12 +53,18 @@ jobs:
         rm -f package-lock.json
         npm cache clean --force
     
-    - name: Install dependencies
+    - name: Install wd package
       run: |
-        echo "Installing dependencies..."
-        npm install --verbose 2>&1 | tee npm-install.log
-        echo "\nInstalled packages:"
-        npm list --depth=0
+        echo "Installing wd package..."
+        npm install wd@1.14.0 --save-exact --verbose 2>&1 | tee npm-wd-install.log
+        echo "\nVerifying wd installation:"
+        ls -la node_modules/wd || true
+      continue-on-error: true
+    
+    - name: Install navigation tracker
+      run: |
+        echo "Installing navigation tracker..."
+        npm install ./packages/appium-navigation-tracker-1.0.0.tgz --verbose 2>&1 | tee npm-tracker-install.log
         echo "\nVerifying navigation tracker installation:"
         ls -la node_modules/appium-navigation-tracker || true
       continue-on-error: true
@@ -70,8 +76,10 @@ jobs:
         cat npm-debug.log || true
         echo "\nNPM error log:"
         cat npm-error.log || true
-        echo "\nNPM install log:"
-        cat npm-install.log || true
+        echo "\nNPM wd install log:"
+        cat npm-wd-install.log || true
+        echo "\nNPM tracker install log:"
+        cat npm-tracker-install.log || true
         echo "\nDirectory contents after failure:"
         ls -la
         echo "\nNode modules contents:"
