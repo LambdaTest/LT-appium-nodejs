@@ -51,43 +51,27 @@ jobs:
         rm -f package-lock.json
         npm cache clean --force
     
-    - name: Install wd package first
+    - name: Install dependencies directly
       run: |
-        echo "Installing wd package..."
-        npm install wd@1.14.0 --save-exact --verbose
-    
-    - name: Generate package-lock.json
-      run: |
-        echo "Generating fresh package-lock.json..."
-        npm install --package-lock-only --verbose
-        echo "\nGenerated package-lock.json contents:"
-        cat package-lock.json || true
-    
-    - name: Install dependencies
-      run: |
-        echo "Starting npm install..."
-        npm install --verbose
-      continue-on-error: true
-    
-    - name: Debug - Show npm error logs
-      if: failure()
-      run: |
-        echo "NPM debug log:"
-        cat npm-debug.log || true
-        echo "\nNPM error log:"
-        cat npm-error.log || true
-        echo "\nDirectory contents after failure:"
-        ls -la
-        echo "\nNode modules contents:"
-        ls -la node_modules || true
-        echo "\nPackage.json contents:"
-        cat package.json || true
+        echo "Installing dependencies directly..."
+        npm install --no-package-lock --verbose
+        echo "\nInstalled packages:"
+        npm list --depth=0
     
     - name: Install navigation tracker
       run: |
         mkdir -p packages
         curl -L https://github.com/srivishnua-lambdatest/lambdatest-js-sdk/raw/stage/packages/appium/appium-navigation-tracker-1.0.0.tgz -o packages/appium-navigation-tracker-1.0.0.tgz
-        npm install ./packages/appium-navigation-tracker-1.0.0.tgz --verbose
+        npm install ./packages/appium-navigation-tracker-1.0.0.tgz --no-package-lock --verbose
+    
+    - name: Debug - Show installation status
+      run: |
+        echo "Final package.json:"
+        cat package.json
+        echo "\nInstalled packages:"
+        npm list --depth=0
+        echo "\nNode modules contents:"
+        ls -la node_modules
     
     - name: Configure LambdaTest credentials
       run: |
