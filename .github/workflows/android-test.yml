@@ -42,6 +42,7 @@ jobs:
         echo "LT_APP_ID=${{ secrets.LT_APP_ID }}" >> $GITHUB_ENV
     
     - name: Run Android Test
+      id: test
       run: |
         echo "Running Android test..."
         node Android.js 2>&1 | tee android-test.log
@@ -59,4 +60,20 @@ jobs:
       with:
         name: test-results
         path: test-results/
-        if-no-files-found: warn 
+        if-no-files-found: warn
+
+    - name: Notify Slack
+      if: always()
+      uses: slackapi/slack-github-action@v1.25.0
+      with:
+        channel-id: 'git-action-test'
+        slack-message: |
+          Workflow: ${{ github.workflow }}
+          Status: ${{ job.status }}
+          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          Branch: ${{ github.ref_name }}
+          Commit: ${{ github.sha }}
+          Author: ${{ github.actor }}
+          Test Status: ${{ steps.test.outcome }}
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} 
