@@ -59,19 +59,7 @@ jobs:
         npm install --verbose 2>&1 | tee npm-install.log
         echo "\nInstalled packages:"
         npm list --depth=0
-      continue-on-error: true
-    
-    - name: Install navigation tracker from tgz
-      run: |
-        echo "Extracting navigation tracker..."
-        mkdir -p temp
-        tar -xzf packages/appium-navigation-tracker-1.0.0.tgz -C temp
-        echo "\nVerifying extraction:"
-        ls -la temp/package
-        echo "\nInstalling navigation tracker..."
-        cd temp/package && npm install --verbose 2>&1 | tee ../../npm-tracker-install.log
-        cd ../..
-        echo "\nVerifying installation:"
+        echo "\nVerifying navigation tracker installation:"
         ls -la node_modules/appium-navigation-tracker || true
       continue-on-error: true
     
@@ -84,8 +72,6 @@ jobs:
         cat npm-error.log || true
         echo "\nNPM install log:"
         cat npm-install.log || true
-        echo "\nNPM tracker install log:"
-        cat npm-tracker-install.log || true
         echo "\nDirectory contents after failure:"
         ls -la
         echo "\nNode modules contents:"
@@ -94,8 +80,6 @@ jobs:
         cat package.json || true
         echo "\nPackages directory contents:"
         ls -la packages || true
-        echo "\nTemp directory contents:"
-        ls -la temp || true
     
     - name: Configure LambdaTest credentials
       run: |
