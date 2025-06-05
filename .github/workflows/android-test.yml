@@ -66,7 +66,7 @@ jobs:
       if: always()
       uses: slackapi/slack-github-action@v1.25.0
       with:
-        webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        channel-id: 'git-action-test'
         payload: |
           {
             "text": "Workflow Status Update",
@@ -79,4 +79,6 @@ jobs:
                 }
               }
             ]
-          } 
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
