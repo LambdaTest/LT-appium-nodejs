@@ -1,7 +1,13 @@
 {
+  "name": "lt-appium-nodejs",
+  "version": "1.0.0",
+  "description": "LambdaTest Appium Node.js Sample",
+  "main": "Android.js",
+  "scripts": {
+    "test": "node Android.js"
+  },
   "dependencies": {
-    "appium-navigation-tracker": "file:../../Downloads/appium-navigation-tracker-1.0.0.tgz",
     "wd": "^1.14.0",
-    "yarn": "^1.22.22"
+    "appium-navigation-tracker": "file:./packages/appium-navigation-tracker-1.0.0.tgz"
   }
 }
