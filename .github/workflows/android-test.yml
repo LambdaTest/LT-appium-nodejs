@@ -6,7 +6,7 @@ on:
     branches: [ TTN-23587 ]
   pull_request:
     branches: [ TTN-23587 ]
-  workflow_dispatch: # Allows manual triggering
+  workflow_dispatch:
 
 env:
   LT_USERNAME: ${{ secrets.LT_USERNAME }}
