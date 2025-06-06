@@ -7,9 +7,9 @@ on:
       timezone: 'Asia/Kolkata'
 
 env:
-  LT_USERNAME: karang
-  LT_ACCESS_KEY: LT_RHb3iHNej5fLrHqCUOd4eGrs9JnCKb0YpjytAKpnts9Ixh7
-  LT_APP_ID: lt://APP10160301691747362768822447
+  LT_USERNAME: ${{ secrets.LT_USERNAME }}
+  LT_ACCESS_KEY: ${{ secrets.LT_ACCESS_KEY }}
+  LT_APP_ID: ${{ secrets.LT_APP_ID }}
 
 jobs:
   test:
@@ -35,9 +35,9 @@ jobs:
     
     - name: Configure LambdaTest credentials
       run: |
-        echo "LT_USERNAME=${{ env.LT_USERNAME }}" >> $GITHUB_ENV
-        echo "LT_ACCESS_KEY=${{ env.LT_ACCESS_KEY }}" >> $GITHUB_ENV
-        echo "LT_APP_ID=${{ env.LT_APP_ID }}" >> $GITHUB_ENV
+        echo "LT_USERNAME=${{ secrets.LT_USERNAME }}" >> $GITHUB_ENV
+        echo "LT_ACCESS_KEY=${{ secrets.LT_ACCESS_KEY }}" >> $GITHUB_ENV
+        echo "LT_APP_ID=${{ secrets.LT_APP_ID }}" >> $GITHUB_ENV
     
     - name: Run Android Test
       id: test
