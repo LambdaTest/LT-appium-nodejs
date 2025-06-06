@@ -2,6 +2,16 @@ name: Android Test
 
 on:
   workflow_dispatch:
+    inputs:
+      runner:
+        description: 'Runner to use'
+        required: true
+        default: 'ubuntu-ltqa'
+        type: choice
+        options:
+          - ubuntu-ltqa
+          - ubuntu
+          - ubuntu-latest
   schedule:
     - cron: '0 */2 * * *'  # Runs every 2 hours (at minute 0)
       timezone: 'Asia/Kolkata'
@@ -13,7 +23,7 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu
+    runs-on: ${{ github.event.inputs.runner || 'ubuntu-ltqa' }}
     
     steps:
     - uses: actions/checkout@v4
