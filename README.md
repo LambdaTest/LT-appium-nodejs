@@ -1,5 +1,7 @@
 # Run Appium Tests with Node.js on TestMu AI (Formerly LambdaTest)
 
+> Appium and Node.js-based End-to-End (E2E) testing of mobile apps, executed across real devices and operating systems on TestMu AI.
+
 <p align="center">
   <a href="https://www.testmuai.com/"><img src="https://img.shields.io/badge/MADE%20BY%20TestMu%20AI-000000.svg?style=for-the-badge&labelColor=000" alt="Made by TestMu AI"></a>
   <a href="https://www.npmjs.com/package/wd"><img src="https://img.shields.io/npm/v/wd.svg?style=for-the-badge&labelColor=000000" alt="WD version"></a>
